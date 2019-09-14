@@ -11,9 +11,9 @@ use slavkluev\Bizon365\Models\ArrayOfWebinars;
 class WebinarApi
 {
     const METHODS = [
-        'getList' => 'https://online.bizon365.ru/api/v1/webinars/reports/getlist',
         'get' => 'https://online.bizon365.ru/api/v1/webinars/reports/get',
-        'getViewers' => 'https://online.bizon365.ru/api/v1/webinars/reports/getviewers',
+        'get.list' => 'https://online.bizon365.ru/api/v1/webinars/reports/getlist',
+        'get.viewers' => 'https://online.bizon365.ru/api/v1/webinars/reports/getviewers',
     ];
 
     /**
@@ -32,14 +32,13 @@ class WebinarApi
     }
 
     public function getList(
-        string $webinarId,
         int $skip = 0,
         int $limit = 20,
         bool $liveWebinars = true,
         bool $autoWebinars = true
-    ) {
-        $url = UrlHelper::build(self::METHODS['getList'], [
-            'webinarId' => $webinarId,
+    )
+    {
+        $url = UrlHelper::build(self::METHODS['get.list'], [
             'skip' => $skip,
             'limit' => $limit,
             'LiveWebinars' => $liveWebinars,
@@ -51,7 +50,10 @@ class WebinarApi
     public function get(string $webinarId)
     {
         //TODO
-        $this->api->call(UrlHelper::build(self::METHODS['get'], ['webinarId' => $webinarId]));
+        $url = UrlHelper::build(self::METHODS['get'], [
+            'webinarId' => $webinarId,
+        ]);
+        $this->api->call($url);
     }
 
     public function getAllViewers(string $webinarId)
@@ -63,8 +65,9 @@ class WebinarApi
         string $webinarId,
         int $skip = 0,
         int $limit = 1000
-    ) {
-        $url = UrlHelper::build(self::METHODS['getViewers'], [
+    )
+    {
+        $url = UrlHelper::build(self::METHODS['get.viewers'], [
             'webinarId' => $webinarId,
             'skip' => $skip,
             'limit' => $limit,
