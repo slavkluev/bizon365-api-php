@@ -7,6 +7,8 @@ use slavkluev\Bizon365\Api;
 use slavkluev\Bizon365\Helpers\UrlHelper;
 use slavkluev\Bizon365\Models\ArrayOfViewers;
 use slavkluev\Bizon365\Models\ArrayOfWebinars;
+use slavkluev\Bizon365\Models\Viewer;
+use slavkluev\Bizon365\Models\Webinar;
 
 class WebinarApi
 {
@@ -26,9 +28,24 @@ class WebinarApi
         $this->api = $api;
     }
 
+    /**
+     * @return Webinar[]
+     * @throws \slavkluev\Bizon365\Exceptions\HttpException
+     */
     public function getAll()
     {
-        //TODO
+        $result = [];
+
+        $start = 0;
+        $step = 100;
+
+        do {
+            $arrayOfWebinars = $this->getList($start, $step);
+            $result = array_merge($result, $arrayOfWebinars->getWebinars());
+            $start += $step;
+        } while ($arrayOfWebinars->getTotal() > $start);
+
+        return $result;
     }
 
     /**
@@ -64,9 +81,25 @@ class WebinarApi
 //        $this->api->call($url);
     }
 
+    /**
+     * @param string $webinarId
+     * @return Viewer[]
+     * @throws \slavkluev\Bizon365\Exceptions\HttpException
+     */
     public function getAllViewers(string $webinarId)
     {
-        //TODO
+        $result = [];
+
+        $start = 0;
+        $step = 1000;
+
+        do {
+            $arrayOfViewers = $this->getViewers($webinarId, $start, $step);
+            $result = array_merge($result, $arrayOfViewers->getViewers());
+            $start += $step;
+        } while ($arrayOfViewers->getTotal() > $start);
+
+        return $result;
     }
 
     /**
