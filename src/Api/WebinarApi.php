@@ -61,8 +61,7 @@ class WebinarApi
         int $limit = 20,
         bool $liveWebinars = true,
         bool $autoWebinars = true
-    )
-    {
+    ) {
         $url = UrlHelper::build(self::METHODS['get.list'], [
             'skip' => $skip,
             'limit' => $limit,
@@ -113,8 +112,7 @@ class WebinarApi
         string $webinarId,
         int $skip = 0,
         int $limit = 1000
-    )
-    {
+    ) {
         $url = UrlHelper::build(self::METHODS['get.viewers'], [
             'webinarId' => $webinarId,
             'skip' => $skip,
