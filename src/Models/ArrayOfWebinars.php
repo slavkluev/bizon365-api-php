@@ -3,15 +3,31 @@
 
 namespace slavkluev\Bizon365\Models;
 
-abstract class ArrayOfWebinars
+class ArrayOfWebinars extends Base
 {
-    public static function fromResponse($data)
-    {
-        $arrayOfWebinars = [];
-        foreach ($data['list'] as $webinarData) {
-            $arrayOfWebinars[] = Webinar::fromResponse($webinarData);
-        }
+    protected $count;
+    protected $list;
 
-        return $arrayOfWebinars;
+    public static $nestedModels = [
+        'list' => [
+            'class' => Webinar::class,
+            'array' => true,
+        ],
+    ];
+
+    /**
+     * @return int
+     */
+    public function getTotal()
+    {
+        return $this->count;
+    }
+
+    /**
+     * @return Webinar[]
+     */
+    public function getWebinars()
+    {
+        return $this->list;
     }
 }

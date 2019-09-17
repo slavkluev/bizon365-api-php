@@ -5,12 +5,14 @@ use slavkluev\Bizon365\Client;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $client = new Client('BJZM_178BHkxZfdyX8Sr1b-zOyXIrS1fbfukmUSrJmWM_1X8B');
-$webinars = $client->webinar->getList();
+$arrayOfWebinars = $client->webinar->getList();
 
-foreach ($webinars as $webinar) {
-    $viewers = $client->webinar->getViewers($webinar->getWebinarId());
+print_r($arrayOfWebinars);
 
-    foreach ($viewers as $viewer) {
-        print_r($viewer->toArray());
+foreach ($arrayOfWebinars->getWebinars() as $webinar) {
+    $arrayOfViewers = $client->webinar->getViewers($webinar->getWebinarId());
+
+    foreach ($arrayOfViewers->getViewers() as $viewer) {
+        print_r($viewer);
     }
 }

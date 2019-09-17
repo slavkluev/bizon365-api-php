@@ -31,6 +31,14 @@ class WebinarApi
         //TODO
     }
 
+    /**
+     * @param int $skip
+     * @param int $limit
+     * @param bool $liveWebinars
+     * @param bool $autoWebinars
+     * @return ArrayOfWebinars
+     * @throws \slavkluev\Bizon365\Exceptions\HttpException
+     */
     public function getList(
         int $skip = 0,
         int $limit = 20,
@@ -50,10 +58,10 @@ class WebinarApi
     public function get(string $webinarId)
     {
         //TODO
-        $url = UrlHelper::build(self::METHODS['get'], [
-            'webinarId' => $webinarId,
-        ]);
-        $this->api->call($url);
+//        $url = UrlHelper::build(self::METHODS['get'], [
+//            'webinarId' => $webinarId,
+//        ]);
+//        $this->api->call($url);
     }
 
     public function getAllViewers(string $webinarId)
@@ -61,6 +69,13 @@ class WebinarApi
         //TODO
     }
 
+    /**
+     * @param string $webinarId
+     * @param int $skip
+     * @param int $limit
+     * @return ArrayOfViewers
+     * @throws \slavkluev\Bizon365\Exceptions\HttpException
+     */
     public function getViewers(
         string $webinarId,
         int $skip = 0,

@@ -3,15 +3,31 @@
 
 namespace slavkluev\Bizon365\Models;
 
-abstract class ArrayOfViewers
+class ArrayOfViewers extends Base
 {
-    public static function fromResponse($data)
-    {
-        $arrayOfViewers = [];
-        foreach ($data['viewers'] as $viewerData) {
-            $arrayOfViewers[] = Viewer::fromResponse($viewerData);
-        }
+    protected $total;
+    protected $viewers;
 
-        return $arrayOfViewers;
+    public static $nestedModels = [
+        'viewers' => [
+            'class' => Viewer::class,
+            'array' => true,
+        ],
+    ];
+
+    /**
+     * @return int
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * @return Viewer[]
+     */
+    public function getViewers()
+    {
+        return $this->viewers;
     }
 }

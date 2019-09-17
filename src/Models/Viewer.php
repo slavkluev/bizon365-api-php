@@ -6,9 +6,12 @@ namespace slavkluev\Bizon365\Models;
 class Viewer extends Base
 {
     protected $playVideo;
+    protected $email;
+    protected $phone;
     protected $username;
     protected $url;
     protected $ip;
+    protected $mob;
     protected $useragent;
     protected $referer;
     protected $cu1;
@@ -25,19 +28,41 @@ class Viewer extends Base
     protected $view;
     protected $viewTill;
     protected $webinarId;
+    protected $clickBanner;
+    protected $clickFile;
+    protected $vizitForm;
+    protected $newOrder;
+    protected $orderDetails;
     protected $messages_num;
     protected $finished;
+    protected $uid;
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getPlayVideo()
+    public function isPlayVideo()
     {
-        return $this->playVideo;
+        return (bool)$this->playVideo;
     }
 
     /**
-     * @return mixed
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @return string
      */
     public function getUsername()
     {
@@ -45,7 +70,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUrl()
     {
@@ -53,7 +78,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getIp()
     {
@@ -61,7 +86,15 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return bool
+     */
+    public function isMobile()
+    {
+        return (bool)$this->mob;
+    }
+
+    /**
+     * @return string
      */
     public function getUseragent()
     {
@@ -69,7 +102,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getReferer()
     {
@@ -77,7 +110,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCu1()
     {
@@ -85,7 +118,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getP1()
     {
@@ -93,7 +126,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getP2()
     {
@@ -101,7 +134,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getP3()
     {
@@ -109,7 +142,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getRoomId()
     {
@@ -117,7 +150,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getChatUserId()
     {
@@ -125,7 +158,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCity()
     {
@@ -133,7 +166,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCountry()
     {
@@ -141,7 +174,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getRegion()
     {
@@ -149,7 +182,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTz()
     {
@@ -157,7 +190,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCreated()
     {
@@ -165,7 +198,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getView()
     {
@@ -173,7 +206,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getViewTill()
     {
@@ -181,7 +214,7 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getWebinarId()
     {
@@ -189,7 +222,47 @@ class Viewer extends Base
     }
 
     /**
+     * @return string
+     */
+    public function getClickBanner()
+    {
+        return $this->clickBanner;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClickFile()
+    {
+        return $this->clickFile;
+    }
+
+    /**
      * @return mixed
+     */
+    public function getVizitForm()
+    {
+        return $this->vizitForm;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNewOrder()
+    {
+        return $this->newOrder;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderDetails()
+    {
+        return $this->orderDetails;
+    }
+
+    /**
+     * @return int
      */
     public function getMessagesNum()
     {
@@ -197,10 +270,18 @@ class Viewer extends Base
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getFinished()
+    public function isFinished()
     {
-        return $this->finished;
+        return (bool)$this->finished;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUid()
+    {
+        return $this->uid;
     }
 }
