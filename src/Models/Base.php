@@ -20,8 +20,7 @@ abstract class Base
 
     protected function map($data)
     {
-        $reflect = new ReflectionClass($this);
-        $props = $reflect->getProperties(ReflectionProperty::IS_PROTECTED);
+        $props = $this->getProtectedProperties();
 
         foreach ($props as $prop) {
             $propName = $prop->getName();
@@ -47,8 +46,7 @@ abstract class Base
 
     public function toArray()
     {
-        $reflect = new ReflectionClass($this);
-        $props = $reflect->getProperties(ReflectionProperty::IS_PROTECTED);
+        $props = $this->getProtectedProperties();
 
         $result = [];
 
@@ -58,5 +56,11 @@ abstract class Base
         }
 
         return $result;
+    }
+
+    protected function getProtectedProperties()
+    {
+        $reflect = new ReflectionClass($this);
+        return $reflect->getProperties(ReflectionProperty::IS_PROTECTED);
     }
 }
