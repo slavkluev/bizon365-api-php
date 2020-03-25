@@ -13,7 +13,7 @@ class KassaApi extends AbstractApi
 
     public function getOrdersBySearch(
         string $search,
-        int $skip  = 0,
+        int $skip = 0,
         int $limit = 100,
         bool $paid = null
     ) {
@@ -30,7 +30,7 @@ class KassaApi extends AbstractApi
 
     public function getOrdersByDays(
         int $days,
-        int $skip  = 0,
+        int $skip = 0,
         int $limit = 100,
         bool $paid = null
     ) {
@@ -48,7 +48,7 @@ class KassaApi extends AbstractApi
     public function getOrdersByDate(
         string $dateBegin,
         string $dateEnd,
-        int $skip  = 0,
+        int $skip = 0,
         int $limit = 100,
         bool $paid = null
     ) {
@@ -64,13 +64,13 @@ class KassaApi extends AbstractApi
     }
 
     public function getOrders(
-        int $skip         = 0,
-        int $limit        = 100,
-        int $days         = null,
+        int $skip = 0,
+        int $limit = 100,
+        int $days = null,
         string $dateBegin = null,
-        string $dateEnd   = null,
-        bool $paid        = null,
-        string $search    = null
+        string $dateEnd = null,
+        bool $paid = null,
+        string $search = null
     ) {
         $url = UrlHelper::build(self::METHODS['get.orders'], [
             'skip'      => $skip,

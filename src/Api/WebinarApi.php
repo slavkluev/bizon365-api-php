@@ -84,13 +84,13 @@ class WebinarApi extends AbstractApi
 
     public function getSubscribers(
         string $pageId,
-        int $skip                 = 0,
-        int $limit                = 50,
+        int $skip = 0,
+        int $limit = 50,
         string $registeredTimeMin = null,
         string $registeredTimeMax = null,
-        string $webinarTimeMin    = null,
-        string $webinarTimeMax    = null,
-        string $urlMarker         = null
+        string $webinarTimeMin = null,
+        string $webinarTimeMax = null,
+        string $urlMarker = null
     ) {
         $url = UrlHelper::build(self::METHODS['get.subscribers'], [
             'pageId'            => $pageId,
@@ -105,7 +105,8 @@ class WebinarApi extends AbstractApi
         return $this->get($url);
     }
 
-    public function addSubscriber(array $subscriber) {
+    public function addSubscriber(array $subscriber)
+    {
         return $this->post(self::METHODS['add.subscriber'], $subscriber);
     }
 
