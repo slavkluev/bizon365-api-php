@@ -1,0 +1,20 @@
+{
+    "skip": 0,
+    "limit": 50,
+    "total": 1,
+    "list": [
+        {
+            "uid": "a12b34",
+            "email": "user@example.com",
+            "confirmed": true,
+            "username": "username",
+            "phone": "phone",
+            "secret": "secret",
+            "webinarTime": "2016-11-30T20:33:37.198Z",
+            "registeredTime": "2016-11-30T20:33:37.232Z",
+            "clickBanner": 0,
+            "vizitWebinar": 0,
+            "vizitWebinarEnd": 0
+        }
+    ]
+}

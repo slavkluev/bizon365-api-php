@@ -3,58 +3,26 @@
 
 namespace slavkluev\Bizon365\Api;
 
-use slavkluev\Bizon365\Api;
 use slavkluev\Bizon365\Helpers\UrlHelper;
-use slavkluev\Bizon365\Models\ArrayOfViewers;
-use slavkluev\Bizon365\Models\ArrayOfWebinars;
-use slavkluev\Bizon365\Models\Viewer;
-use slavkluev\Bizon365\Models\Webinar;
 
-class WebinarApi
+class WebinarApi extends AbstractApi
 {
     const METHODS = [
-        'get' => 'https://online.bizon365.ru/api/v1/webinars/reports/get',
-        'get.list' => 'https://online.bizon365.ru/api/v1/webinars/reports/getlist',
-        'get.viewers' => 'https://online.bizon365.ru/api/v1/webinars/reports/getviewers',
+        'get'               => 'webinars/reports/get',
+        'get.list'          => 'webinars/reports/getlist',
+        'get.viewers'       => 'webinars/reports/getviewers',
+        'get.subpages'      => 'webinars/subpages/getSubpages',
+        'get.subscribers'   => 'webinars/subpages/getSubscribers',
+        'add.subscriber'    => 'webinars/subpages/addSubscriber',
+        'remove.subscriber' => 'webinars/subpages/removeSubscriber',
     ];
-
-    /**
-     * @var Api
-     */
-    private $api;
-
-    public function __construct($api)
-    {
-        $this->api = $api;
-    }
-
-    /**
-     * @return Webinar[]
-     * @throws \slavkluev\Bizon365\Exceptions\HttpException
-     */
-    public function getAll()
-    {
-        $result = [];
-
-        $start = 0;
-        $step = 100;
-
-        do {
-            $arrayOfWebinars = $this->getList($start, $step);
-            $result = array_merge($result, $arrayOfWebinars->getWebinars());
-            $start += $step;
-        } while ($arrayOfWebinars->getTotal() > $start);
-
-        return $result;
-    }
 
     /**
      * @param int $skip
      * @param int $limit
      * @param bool $liveWebinars
      * @param bool $autoWebinars
-     * @return ArrayOfWebinars
-     * @throws \slavkluev\Bizon365\Exceptions\HttpException
+     * @return array
      */
     public function getList(
         int $skip = 0,
@@ -63,50 +31,32 @@ class WebinarApi
         bool $autoWebinars = true
     ) {
         $url = UrlHelper::build(self::METHODS['get.list'], [
-            'skip' => $skip,
-            'limit' => $limit,
+            'skip'         => $skip,
+            'limit'        => $limit,
             'LiveWebinars' => $liveWebinars,
             'AutoWebinars' => $autoWebinars,
         ]);
-        return ArrayOfWebinars::fromResponse($this->api->call($url));
-    }
-
-    public function get(string $webinarId)
-    {
-        //TODO
-//        $url = UrlHelper::build(self::METHODS['get'], [
-//            'webinarId' => $webinarId,
-//        ]);
-//        $this->api->call($url);
+        return $this->get($url);
     }
 
     /**
      * @param string $webinarId
-     * @return Viewer[]
-     * @throws \slavkluev\Bizon365\Exceptions\HttpException
+     * @return array
      */
-    public function getAllViewers(string $webinarId)
+    public function getWebinar(string $webinarId)
     {
-        $result = [];
-
-        $start = 0;
-        $step = 1000;
-
-        do {
-            $arrayOfViewers = $this->getViewers($webinarId, $start, $step);
-            $result = array_merge($result, $arrayOfViewers->getViewers());
-            $start += $step;
-        } while ($arrayOfViewers->getTotal() > $start);
-
-        return $result;
+        $url = UrlHelper::build(self::METHODS['get'], [
+            'webinarId' => $webinarId,
+        ]);
+        print_r($url);
+        return $this->get($url);
     }
 
     /**
      * @param string $webinarId
      * @param int $skip
      * @param int $limit
-     * @return ArrayOfViewers
-     * @throws \slavkluev\Bizon365\Exceptions\HttpException
+     * @return array
      */
     public function getViewers(
         string $webinarId,
@@ -115,9 +65,57 @@ class WebinarApi
     ) {
         $url = UrlHelper::build(self::METHODS['get.viewers'], [
             'webinarId' => $webinarId,
-            'skip' => $skip,
+            'skip'      => $skip,
+            'limit'     => $limit,
+        ]);
+        return $this->get($url);
+    }
+
+    public function getSubpages(
+        int $skip = 0,
+        int $limit = 50
+    ) {
+        $url = UrlHelper::build(self::METHODS['get.subpages'], [
+            'skip'  => $skip,
             'limit' => $limit,
         ]);
-        return ArrayOfViewers::fromResponse($this->api->call($url));
+        return $this->get($url);
+    }
+
+    public function getSubscribers(
+        string $pageId,
+        int $skip                 = 0,
+        int $limit                = 50,
+        string $registeredTimeMin = null,
+        string $registeredTimeMax = null,
+        string $webinarTimeMin    = null,
+        string $webinarTimeMax    = null,
+        string $urlMarker         = null
+    ) {
+        $url = UrlHelper::build(self::METHODS['get.subscribers'], [
+            'pageId'            => $pageId,
+            'skip'              => $skip,
+            'limit'             => $limit,
+            'registeredTimeMin' => $registeredTimeMin,
+            'registeredTimeMax' => $registeredTimeMax,
+            'webinarTimeMin'    => $webinarTimeMin,
+            'webinarTimeMax'    => $webinarTimeMax,
+            'urlMarker'         => $urlMarker,
+        ]);
+        return $this->get($url);
+    }
+
+    public function addSubscriber(array $subscriber) {
+        return $this->post(self::METHODS['add.subscriber'], $subscriber);
+    }
+
+    public function removeSubscriber(
+        string $pageId,
+        string $email
+    ) {
+        return $this->post(self::METHODS['remove.subscriber'], [
+            'pageId' => $pageId,
+            'email'  => $email,
+        ]);
     }
 }

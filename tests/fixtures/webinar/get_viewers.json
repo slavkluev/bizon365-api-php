@@ -1,0 +1,36 @@
+{
+    "errors": [],
+    "viewers": [
+        {
+            "playVideo": 1,
+            "username": "username",
+            "url": "url",
+            "ip": "123.123.123.123",
+            "utm_source": "vk",
+            "utm_medium": "123123123",
+            "useragent": "Apple Mac, Chrome 80.0.3987.122",
+            "referer": "http:\/\/away.vk.com\/",
+            "cu1": "",
+            "p1": "",
+            "p2": "",
+            "p3": "",
+            "roomid": "roomid",
+            "chatUserId": "chatUserId",
+            "city": "city",
+            "country": "RU",
+            "region": "region",
+            "tz": "",
+            "created": "2020-02-25T18:24:28.380Z",
+            "webinarId": "webinarId",
+            "view": 1582646400000,
+            "viewTill": 1582646400100,
+            "clickBanner": true,
+            "messages_num": 0,
+            "finished": true
+        }
+    ],
+    "total": 1,
+    "skip": 0,
+    "limit": 1000,
+    "loaded": 1
+}

@@ -1,0 +1,32 @@
+{
+    "skip": 0,
+    "limit": 2,
+    "rooms": [],
+    "count": 20,
+    "list": [
+        {
+            "_id": "Test id 1",
+            "name": "1234:test",
+            "text": "Text 1",
+            "type": "AutoWebinars",
+            "nerrors": 0,
+            "count1": 1,
+            "count2": 100,
+            "data": "{\"minutes\":100,\"roomid\":\"1234:test\",\"group\":1,\"start\":1582646400000,\"stat\":1}",
+            "webinarId": "Webinar id 1",
+            "created": "2020-02-25T18:24:28.380Z"
+        },
+        {
+            "_id": "Test id 2",
+            "name": "1234:test",
+            "text": "Text 2",
+            "type": "AutoWebinars",
+            "nerrors": 0,
+            "count1": 1,
+            "count2": 110,
+            "data": "{\"minutes\":110,\"roomid\":\"1234:test\",\"group\":1,\"start\":1582646400000,\"stat\":1}",
+            "webinarId": "Webinar id 2",
+            "created": "2020-02-25T18:24:28.380Z"
+        }
+    ]
+}

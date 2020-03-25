@@ -1,0 +1,31 @@
+{
+    "skip": 0,
+    "limit": 50,
+    "total": 1,
+    "pages": [
+        {
+            "pageId": "1234:test",
+            "title": "title",
+            "stat": {
+                "webinarEnd": 0,
+                "vizitWebinar": 0,
+                "removed": 0,
+                "registered": 0
+            },
+            "sessionControl": true,
+            "protectedLink": true,
+            "isOn": false,
+            "room": "room",
+            "author": "author",
+            "authorEmail": "test@gmail.com",
+            "closestTimeToSkip": 0,
+            "daysNum": 2,
+            "multiroom": "",
+            "redirectOnInput": "",
+            "redirectOnReg": "",
+            "url_marker_name": "",
+            "webhook_url": ""
+        }
+    ],
+    "rooms": []
+}

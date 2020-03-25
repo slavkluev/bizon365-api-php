@@ -3,31 +3,55 @@
 
 namespace slavkluev\Bizon365;
 
-use slavkluev\Bizon365\Api\WebinarApi;
-use slavkluev\Bizon365\Exceptions\ModelException;
-
 /**
  * Class Client
  * @package slavkluev\Bizon365
- * @property WebinarApi $webinar
  */
 class Client
 {
-    private $api;
+    use ApiMethodsTrait;
+
+    const BASE_URI = 'https://online.bizon365.ru/api/v1/';
+
+    /**
+     * Stores the HTTP Client
+     * @var \GuzzleHttp\Client
+     */
+    private $httpClient;
+
+    /**
+     * Stores the token
+     * @var string
+     */
+    private $token;
 
     public function __construct(string $token)
     {
-        $this->api = new Api($token);
+        $this->token = $token;
+        $this->constructHttpClient();
     }
 
-    public function __get($name)
+    protected function constructHttpClient()
     {
-        $class = 'slavkluev\\Bizon365\\Api\\' . ucfirst($name) . 'Api';
-        if (!class_exists($class)) {
-            throw new ModelException();
-        }
+        $this->httpClient = new \GuzzleHttp\Client([
+            'base_uri' => self::BASE_URI,
+            'headers' => ['X-Token' => $this->token]
+        ]);
+    }
 
-        $api = new $class($this->api);
-        return $api;
+    /**
+     * @return \GuzzleHttp\Client
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
+    }
+
+    /**
+     * @param \GuzzleHttp\Client $httpClient
+     */
+    public function setHttpClient($httpClient): void
+    {
+        $this->httpClient = $httpClient;
     }
 }

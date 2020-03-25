@@ -1,0 +1,16 @@
+{
+    "orders": [],
+    "report": {
+        "_id": "id 1",
+        "group": "1234",
+        "roomid": "room id",
+        "webinarId": "test webinar id",
+        "report": "report",
+        "messages": "messages",
+        "messagesTS": "messagesTS",
+        "ver": 2,
+        "created": "2020-02-25T18:24:28.380Z",
+        "__v": 0
+    },
+    "room_title": "room title"
+}
