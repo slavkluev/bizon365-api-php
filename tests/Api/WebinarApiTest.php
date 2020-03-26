@@ -3,22 +3,23 @@
 namespace slavkluev\Bizon365\Api;
 
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use slavkluev\Bizon365\Client;
+use Tarampampam\GuzzleUrlMock\UrlsMockHandler;
 
 class WebinarApiTest extends TestCase
 {
     protected $webinarApi;
     protected $mockHandler;
 
-    protected function setUp(): void
+    protected function setUp()
     {
-        $this->mockHandler = new MockHandler();
+        $this->mockHandler = new UrlsMockHandler;
 
         $httpClient = new GuzzleClient([
-            'handler' => $this->mockHandler,
+            'handler' => HandlerStack::create($this->mockHandler),
         ]);
 
         $client = new Client('token');
@@ -28,7 +29,11 @@ class WebinarApiTest extends TestCase
 
     public function testGetList()
     {
-        $this->mockHandler->append(new Response(200, [], $this->getFixture('get_list.json')));
+        $this->mockHandler->onUriRequested(
+            'webinars/reports/getlist',
+            'get',
+            new Response(200, [], $this->getFixture('get_list.json'))
+        );
 
         $list = $this->webinarApi->getList();
 
@@ -38,19 +43,27 @@ class WebinarApiTest extends TestCase
 
     public function testGetWebinar()
     {
-        $this->mockHandler->append(new Response(200, [], $this->getFixture('get_webinar.json')));
+        $this->mockHandler->onUriRequested(
+            'webinars/reports/get?webinarId=test_webinar_id',
+            'get',
+            new Response(200, [], $this->getFixture('get_webinar.json'))
+        );
 
-        $webinar = $this->webinarApi->getWebinar('test webinar id');
+        $webinar = $this->webinarApi->getWebinar('test_webinar_id');
 
         $this->assertIsArray($webinar);
-        $this->assertEquals('test webinar id', $webinar['report']['webinarId']);
+        $this->assertEquals('test_webinar_id', $webinar['report']['webinarId']);
     }
 
     public function testGetViewers()
     {
-        $this->mockHandler->append(new Response(200, [], $this->getFixture('get_viewers.json')));
+        $this->mockHandler->onUriRequested(
+            'webinars/reports/getviewers?webinarId=test_webinar_id',
+            'get',
+            new Response(200, [], $this->getFixture('get_viewers.json'))
+        );
 
-        $viewers = $this->webinarApi->getViewers('test webinar id');
+        $viewers = $this->webinarApi->getViewers('test_webinar_id');
 
         $this->assertIsArray($viewers);
         $this->assertCount(1, $viewers['viewers']);
@@ -59,7 +72,11 @@ class WebinarApiTest extends TestCase
 
     public function testGetSubpages()
     {
-        $this->mockHandler->append(new Response(200, [], $this->getFixture('get_subpages.json')));
+        $this->mockHandler->onUriRequested(
+            'webinars/subpages/getSubpages',
+            'get',
+            new Response(200, [], $this->getFixture('get_subpages.json'))
+        );
 
         $subpages = $this->webinarApi->getSubpages();
 
@@ -70,7 +87,11 @@ class WebinarApiTest extends TestCase
 
     public function testGetSubscribers()
     {
-        $this->mockHandler->append(new Response(200, [], $this->getFixture('get_subscribers.json')));
+        $this->mockHandler->onUriRequested(
+            'webinars/subpages/getSubscribers?pageId=test_page_id',
+            'get',
+            new Response(200, [], $this->getFixture('get_subscribers.json'))
+        );
 
         $subscribers = $this->webinarApi->getSubscribers('test_page_id');
 
@@ -81,7 +102,11 @@ class WebinarApiTest extends TestCase
 
     public function testAddSubscriber()
     {
-        $this->mockHandler->append(new Response(200, [], $this->getFixture('add_subscriber.json')));
+        $this->mockHandler->onUriRequested(
+            'webinars/subpages/addSubscriber',
+            'post',
+            new Response(200, [], $this->getFixture('add_subscriber.json'))
+        );
 
         $subscriber = $this->webinarApi->addSubscriber([
             'pageId' => 'test_page_id',
@@ -94,7 +119,11 @@ class WebinarApiTest extends TestCase
 
     public function testRemoveSubscriber()
     {
-        $this->mockHandler->append(new Response(200, [], $this->getFixture('remove_subscriber.json')));
+        $this->mockHandler->onUriRequested(
+            'webinars/subpages/removeSubscriber',
+            'post',
+            new Response(200, [], $this->getFixture('remove_subscriber.json'))
+        );
 
         $result = $this->webinarApi->removeSubscriber('test_page_id', 'test@test.com');
 

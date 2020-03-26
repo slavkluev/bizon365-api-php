@@ -20,5 +20,9 @@ class UrlHelperTest extends TestCase
             'https://test.test/test?param1=value1',
             UrlHelper::build('https://test.test/test', ['param1' => 'value1', 'param2' => null])
         );
+        $this->assertEquals(
+            'https://test.test/test',
+            UrlHelper::build('https://test.test/test', ['param1' => null, 'param2' => null])
+        );
     }
 }

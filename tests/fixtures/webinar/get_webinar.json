@@ -3,8 +3,8 @@
     "report": {
         "_id": "id 1",
         "group": "1234",
-        "roomid": "room id",
-        "webinarId": "test webinar id",
+        "roomid": "room_id",
+        "webinarId": "test_webinar_id",
         "report": "report",
         "messages": "messages",
         "messagesTS": "messagesTS",
