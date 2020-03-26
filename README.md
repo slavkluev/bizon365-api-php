@@ -7,25 +7,9 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+Удобный и быстрый клиент на PHP для работы с API [bizon365](https://bizon365.ru/).
 
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practices by being named the following.
-
-```
-bin/        
-build/
-docs/
-config/
-src/
-tests/
-vendor/
-```
-
-
-## Install
+## Установка
 
 Via Composer
 
@@ -33,16 +17,94 @@ Via Composer
 $ composer require slavkluev/bizon365-api-php
 ```
 
-## Usage
+## Использование
+
+### Авторизация через токен
+
+Авторизация со значением токена, полученного в интерфейсе системы, в разделе «Модераторы, сотрудники» у конкретного пользователя.
 
 ``` php
-$client = new slavkluev\Bizon365\Client('token');
-$webinars = $client->webinar->getList('webinarId');
+use slavkluev\Bizon365\Client;
+
+$client = new Client('token');
 ```
 
-## Change log
+### Вебинары
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+``` php
+$webinarApi = $client->getWebinarApi();
+
+try {
+    // Получение списка доступных отчетов
+    $list = $webinarApi->getList();
+
+    // Получение конкретного отчета
+    $webinar = $webinarApi->getWebinar('test_webinar_id');
+
+    // Получение списка зрителей вебинара
+    $viewers = $webinarApi->getViewers('test_webinar_id');
+
+    // Получение списка страниц регистрации и их рассылок
+    $subpages = $webinarApi->getSubpages();
+
+    // Получение списка подписчиков в заданной странице регистрации
+    $subscribers = $webinarApi->getSubscribers('test_page_id');
+
+    // Добавление подписчика в базу, регистрируя его на конкретный сеанс вебинара
+    $subscriber = $webinarApi->addSubscriber([
+        'pageId' => 'test_page_id',
+        'email' => 'test@test.com',
+        'time' => '2017-10-11T17:00:00.000Z',
+    ]);
+
+    // Удаление подписчика со страницы регистрации
+    $result = $webinarApi->removeSubscriber('test_page_id', 'test@test.com');
+
+} catch (\GuzzleHttp\Exception\ClientException $e) {
+    echo $e->getResponse()->getBody()->getContents();
+}
+```
+
+### Касса
+
+``` php
+$kassaApi = $client->getKassaApi();
+
+try {
+    // Получение списка заказов
+    $orders = $kassaApi->getOrders();
+
+    // Получение списка заказов с помощью поисковой строки
+    $orders = $kassaApi->getOrdersBySearch('test');
+
+    // Получение списка заказов за последние дни
+    $orders = $kassaApi->getOrdersByDays(1);
+
+    // Получение списка заказов в промежутке между датами
+    $orders = $kassaApi->getOrdersByDate('2015-03-01', '2017-05-01');
+
+} catch (\GuzzleHttp\Exception\ClientException $e) {
+    echo $e->getResponse()->getBody()->getContents();
+}
+```
+
+### Курсы
+
+``` php
+$courseApi = $client->getCourseApi();
+
+try {
+    // Зарегистрировать ученика
+    $result = $courseApi->addStudent([
+        'email' => 'test@test.com',
+        'username' => 'test',
+        'pwd' => 'test',
+    ]);
+
+} catch (\GuzzleHttp\Exception\ClientException $e) {
+    echo $e->getResponse()->getBody()->getContents();
+}
+```
 
 ## Testing
 

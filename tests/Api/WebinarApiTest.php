@@ -111,6 +111,7 @@ class WebinarApiTest extends TestCase
         $subscriber = $this->webinarApi->addSubscriber([
             'pageId' => 'test_page_id',
             'email' => 'test@test.com',
+            'time' => '2017-10-11T17:00:00.000Z',
         ]);
 
         $this->assertIsArray($subscriber);
