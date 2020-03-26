@@ -13,8 +13,8 @@ class KassaApi extends AbstractApi
 
     public function getOrdersBySearch(
         string $search,
-        int $skip = 0,
-        int $limit = 100,
+        int $skip = null,
+        int $limit = null,
         bool $paid = null
     ) {
         return $this->getOrders(
@@ -30,8 +30,8 @@ class KassaApi extends AbstractApi
 
     public function getOrdersByDays(
         int $days,
-        int $skip = 0,
-        int $limit = 100,
+        int $skip = null,
+        int $limit = null,
         bool $paid = null
     ) {
         return $this->getOrders(
@@ -48,8 +48,8 @@ class KassaApi extends AbstractApi
     public function getOrdersByDate(
         string $dateBegin,
         string $dateEnd,
-        int $skip = 0,
-        int $limit = 100,
+        int $skip = null,
+        int $limit = null,
         bool $paid = null
     ) {
         return $this->getOrders(
@@ -64,8 +64,8 @@ class KassaApi extends AbstractApi
     }
 
     public function getOrders(
-        int $skip = 0,
-        int $limit = 100,
+        int $skip = null,
+        int $limit = null,
         int $days = null,
         string $dateBegin = null,
         string $dateEnd = null,

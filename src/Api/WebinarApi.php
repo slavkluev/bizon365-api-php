@@ -25,10 +25,10 @@ class WebinarApi extends AbstractApi
      * @return array
      */
     public function getList(
-        int $skip = 0,
-        int $limit = 20,
-        bool $liveWebinars = true,
-        bool $autoWebinars = true
+        int $skip = null,
+        int $limit = null,
+        bool $liveWebinars = null,
+        bool $autoWebinars = null
     ) {
         $url = UrlHelper::build(self::METHODS['get.list'], [
             'skip'         => $skip,
@@ -48,7 +48,6 @@ class WebinarApi extends AbstractApi
         $url = UrlHelper::build(self::METHODS['get'], [
             'webinarId' => $webinarId,
         ]);
-        print_r($url);
         return $this->get($url);
     }
 
@@ -60,8 +59,8 @@ class WebinarApi extends AbstractApi
      */
     public function getViewers(
         string $webinarId,
-        int $skip = 0,
-        int $limit = 1000
+        int $skip = null,
+        int $limit = null
     ) {
         $url = UrlHelper::build(self::METHODS['get.viewers'], [
             'webinarId' => $webinarId,
@@ -72,8 +71,8 @@ class WebinarApi extends AbstractApi
     }
 
     public function getSubpages(
-        int $skip = 0,
-        int $limit = 50
+        int $skip = null,
+        int $limit = null
     ) {
         $url = UrlHelper::build(self::METHODS['get.subpages'], [
             'skip'  => $skip,
@@ -84,8 +83,8 @@ class WebinarApi extends AbstractApi
 
     public function getSubscribers(
         string $pageId,
-        int $skip = 0,
-        int $limit = 50,
+        int $skip = null,
+        int $limit = null,
         string $registeredTimeMin = null,
         string $registeredTimeMax = null,
         string $webinarTimeMin = null,

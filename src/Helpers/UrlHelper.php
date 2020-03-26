@@ -8,6 +8,6 @@ class UrlHelper
     public static function build(string $url, array $params)
     {
         $query = http_build_query($params);
-        return implode('?', [$url, $query]);
+        return empty($query) ? $url : implode('?', [$url, $query]);
     }
 }
