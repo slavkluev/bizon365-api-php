@@ -3,6 +3,7 @@
 
 namespace slavkluev\Bizon365\Api;
 
+use GuzzleHttp\Exception\ClientException;
 use slavkluev\Bizon365\Helpers\UrlHelper;
 
 class WebinarApi extends AbstractApi
@@ -18,11 +19,12 @@ class WebinarApi extends AbstractApi
     ];
 
     /**
-     * @param int $skip
-     * @param int $limit
-     * @param bool $liveWebinars
-     * @param bool $autoWebinars
-     * @return array
+     * @param int|null $skip
+     * @param int|null $limit
+     * @param bool|null $liveWebinars
+     * @param bool|null $autoWebinars
+     * @return mixed
+     * @throws ClientException
      */
     public function getList(
         int $skip = null,
@@ -41,7 +43,8 @@ class WebinarApi extends AbstractApi
 
     /**
      * @param string $webinarId
-     * @return array
+     * @return mixed
+     * @throws ClientException
      */
     public function getWebinar(string $webinarId)
     {
@@ -53,9 +56,10 @@ class WebinarApi extends AbstractApi
 
     /**
      * @param string $webinarId
-     * @param int $skip
-     * @param int $limit
-     * @return array
+     * @param int|null $skip
+     * @param int|null $limit
+     * @return mixed
+     * @throws ClientException
      */
     public function getViewers(
         string $webinarId,
@@ -70,6 +74,12 @@ class WebinarApi extends AbstractApi
         return $this->get($url);
     }
 
+    /**
+     * @param int|null $skip
+     * @param int|null $limit
+     * @return mixed
+     * @throws ClientException
+     */
     public function getSubpages(
         int $skip = null,
         int $limit = null
@@ -81,6 +91,18 @@ class WebinarApi extends AbstractApi
         return $this->get($url);
     }
 
+    /**
+     * @param string $pageId
+     * @param int|null $skip
+     * @param int|null $limit
+     * @param string|null $registeredTimeMin
+     * @param string|null $registeredTimeMax
+     * @param string|null $webinarTimeMin
+     * @param string|null $webinarTimeMax
+     * @param string|null $urlMarker
+     * @return mixed
+     * @throws ClientException
+     */
     public function getSubscribers(
         string $pageId,
         int $skip = null,
@@ -104,11 +126,22 @@ class WebinarApi extends AbstractApi
         return $this->get($url);
     }
 
+    /**
+     * @param array $subscriber
+     * @return mixed
+     * @throws ClientException
+     */
     public function addSubscriber(array $subscriber)
     {
         return $this->post(self::METHODS['add.subscriber'], $subscriber);
     }
 
+    /**
+     * @param string $pageId
+     * @param string $email
+     * @return mixed
+     * @throws ClientException
+     */
     public function removeSubscriber(
         string $pageId,
         string $email

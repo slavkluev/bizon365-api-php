@@ -3,6 +3,7 @@
 
 namespace slavkluev\Bizon365\Api;
 
+use GuzzleHttp\Exception\ClientException;
 use slavkluev\Bizon365\Helpers\UrlHelper;
 
 class KassaApi extends AbstractApi
@@ -11,6 +12,14 @@ class KassaApi extends AbstractApi
         'get.orders' => 'kassa/orders/getorders',
     ];
 
+    /**
+     * @param string $search
+     * @param int|null $skip
+     * @param int|null $limit
+     * @param bool|null $paid
+     * @return mixed
+     * @throws ClientException
+     */
     public function getOrdersBySearch(
         string $search,
         int $skip = null,
@@ -28,6 +37,14 @@ class KassaApi extends AbstractApi
         );
     }
 
+    /**
+     * @param int $days
+     * @param int|null $skip
+     * @param int|null $limit
+     * @param bool|null $paid
+     * @return mixed
+     * @throws ClientException
+     */
     public function getOrdersByDays(
         int $days,
         int $skip = null,
@@ -45,6 +62,15 @@ class KassaApi extends AbstractApi
         );
     }
 
+    /**
+     * @param string $dateBegin
+     * @param string $dateEnd
+     * @param int|null $skip
+     * @param int|null $limit
+     * @param bool|null $paid
+     * @return mixed
+     * @throws ClientException
+     */
     public function getOrdersByDate(
         string $dateBegin,
         string $dateEnd,
@@ -63,6 +89,17 @@ class KassaApi extends AbstractApi
         );
     }
 
+    /**
+     * @param int|null $skip
+     * @param int|null $limit
+     * @param int|null $days
+     * @param string|null $dateBegin
+     * @param string|null $dateEnd
+     * @param bool|null $paid
+     * @param string|null $search
+     * @return mixed
+     * @throws ClientException
+     */
     public function getOrders(
         int $skip = null,
         int $limit = null,
