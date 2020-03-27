@@ -25,18 +25,25 @@ class Client
      */
     private $token;
 
-    public function __construct(string $token)
+    /**
+     * Client constructor.
+     *
+     * @param string $token  Token
+     * @param array  $config GuzzleClient configuration settings.
+     */
+    public function __construct(string $token, array $config = [])
     {
         $this->token = $token;
-        $this->constructHttpClient();
+        $this->constructHttpClient($config);
     }
 
-    protected function constructHttpClient()
+    protected function constructHttpClient($config)
     {
-        $this->httpClient = new \GuzzleHttp\Client([
+        $config = array_merge($config, [
             'base_uri' => self::BASE_URI,
             'headers' => ['X-Token' => $this->token]
         ]);
+        $this->httpClient = new \GuzzleHttp\Client($config);
     }
 
     /**

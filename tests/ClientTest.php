@@ -33,6 +33,15 @@ class ClientTest extends TestCase
         );
     }
 
+    public function testBaseUriWithCustomConfig()
+    {
+        $client = new Client('testToken', ['base_uri' => 'test.com']);
+        $this->assertEquals(
+            'https://online.bizon365.ru/api/v1/',
+            $client->getHttpClient()->getConfig('base_uri')
+        );
+    }
+
     public function testHeaders()
     {
         $this->assertEquals(
