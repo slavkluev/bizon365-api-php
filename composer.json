@@ -1,7 +1,7 @@
 {
     "name": "slavkluev/bizon365-api-php",
     "type": "library",
-    "description": "",
+    "description": "Удобный и быстрый клиент на PHP для работы с API bizon365.",
     "keywords": [
         "slavkluev",
         "bizon365-api-php",
