@@ -24,6 +24,8 @@ $ composer require slavkluev/bizon365-api-php
 Авторизация со значением токена, полученного в интерфейсе системы, в разделе «Модераторы, сотрудники» у конкретного пользователя.
 
 ``` php
+require_once __DIR__ . '/vendor/autoload.php';
+
 use slavkluev\Bizon365\Client;
 
 $client = new Client('token');
